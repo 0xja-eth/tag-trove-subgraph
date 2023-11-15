@@ -1,0 +1,21 @@
+type Buy @entity(immutable: true) {
+  id: Bytes!
+  _buyer: Bytes! # address
+  _cid: BigInt! # uint256
+  _count: BigInt! # uint256
+  _value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Send @entity(immutable: true) {
+  id: Bytes!
+  _sender: Bytes! # address
+  _cid: BigInt! # uint256
+  _title: String! # string
+  _content: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

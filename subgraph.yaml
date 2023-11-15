@@ -1,0 +1,26 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Data2Swap
+    network: chapel
+    source:
+      address: "0x6Cd07D4f2470642823A2BA37d1Fb1dFF14f8467F"
+      abi: Data2Swap
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Buy
+        - Send
+      abis:
+        - name: Data2Swap
+          file: ./abis/Data2Swap.json
+      eventHandlers:
+        - event: Buy(indexed address,indexed uint256,uint256,uint256)
+          handler: handleBuy
+        - event: Send(indexed address,indexed uint256,string,string)
+          handler: handleSend
+      file: ./src/data-2-swap.ts
