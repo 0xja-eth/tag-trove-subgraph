@@ -6,25 +6,24 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
-import { Address, Bytes, BigInt } from "@graphprotocol/graph-ts"
-import { Buy } from "../generated/schema"
-import { Buy as BuyEvent } from "../generated/Data2Swap/Data2Swap"
-import { handleBuy } from "../src/data-2-swap"
-import { createBuyEvent } from "./data-2-swap-utils"
+import { Address, BigInt } from "@graphprotocol/graph-ts"
+import { Approval } from "../generated/schema"
+import { Approval as ApprovalEvent } from "../generated/ZKProfile/ZKProfile"
+import { handleApproval } from "../src/zk-profile"
+import { createApprovalEvent } from "./zk-profile-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
-    let _buyer = Address.fromString(
+    let owner = Address.fromString("0x0000000000000000000000000000000000000001")
+    let approved = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     )
-    let _key = Bytes.fromI32(1234567890)
-    let _count = BigInt.fromI32(234)
-    let _value = BigInt.fromI32(234)
-    let newBuyEvent = createBuyEvent(_buyer, _key, _count, _value)
-    handleBuy(newBuyEvent)
+    let tokenId = BigInt.fromI32(234)
+    let newApprovalEvent = createApprovalEvent(owner, approved, tokenId)
+    handleApproval(newApprovalEvent)
   })
 
   afterAll(() => {
@@ -34,32 +33,26 @@ describe("Describe entity assertions", () => {
   // For more test scenarios, see:
   // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
 
-  test("Buy created and stored", () => {
-    assert.entityCount("Buy", 1)
+  test("Approval created and stored", () => {
+    assert.entityCount("Approval", 1)
 
     // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
     assert.fieldEquals(
-      "Buy",
+      "Approval",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "_buyer",
+      "owner",
       "0x0000000000000000000000000000000000000001"
     )
     assert.fieldEquals(
-      "Buy",
+      "Approval",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "_key",
-      "1234567890"
+      "approved",
+      "0x0000000000000000000000000000000000000001"
     )
     assert.fieldEquals(
-      "Buy",
+      "Approval",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "_count",
-      "234"
-    )
-    assert.fieldEquals(
-      "Buy",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "_value",
+      "tokenId",
       "234"
     )
 

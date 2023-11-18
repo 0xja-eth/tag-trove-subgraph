@@ -1,7 +1,7 @@
 type Buy @entity(immutable: true) {
   id: Bytes!
   _buyer: Bytes! # address
-  _tagIds: [BigInt!] # uint256[]
+  _key: Bytes! # bytes32
   _count: BigInt! # uint256
   _value: BigInt! # uint256
   blockNumber: BigInt!
@@ -12,26 +12,54 @@ type Buy @entity(immutable: true) {
 type Send @entity(immutable: true) {
   id: Bytes!
   _sender: Bytes! # address
-  _tagId: BigInt! # uint256
+  _key: Bytes! # bytes32
   _title: String! # string
   _content: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
 
-type ZKProfile @entity(immutable: true) {
+type ApprovalForAll @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ZKProof @entity(immutable: true) {
   id: Bytes!
   _to: Bytes! # address
   _a: [BigInt!] # uint256[]
-  _b: [[BigInt!]] # uint256[][]
+  _b: [BigInt!] # uint256[]
   _c: [BigInt!] # uint256[]
-  _input: [BigInt!] # uint256[]
   _dest: BigInt! # uint256
   _pubKey1: BigInt! # uint256
   _pubKey2: BigInt! # uint256
   _tagId: BigInt! # uint256
-  _nullifier: String! # uint256
+  _nullifier: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

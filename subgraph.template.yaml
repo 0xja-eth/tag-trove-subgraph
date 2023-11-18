@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "{{data2swap-address}}"
       abi: Data2Swap
+      startBlock: 2301431
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -30,6 +31,7 @@ dataSources:
     source:
       address: "{{zkprofile-address}}"
       abi: ZKProfile
+      startBlock: 2301431
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -40,6 +42,12 @@ dataSources:
         - name: ZKProfile
           file: ./abis/ZKProfile.json
       eventHandlers:
-        - event: ZKProof(indexed address,uint256[2],uint256[2][2],uint256[2],uint256[5])
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: ZKProof(indexed address,uint256[2],uint256[4],uint256[2],uint256,uint256,uint256,indexed uint256,uint256)
           handler: handleZKProof
       file: ./src/zk-profile.ts
