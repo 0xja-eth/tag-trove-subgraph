@@ -26,6 +26,7 @@ type ZKProfile @entity(immutable: true) {
   _a: [BigInt!] # uint256[]
   _b: [[BigInt!]] # uint256[][]
   _c: [BigInt!] # uint256[]
+  _input: [BigInt!] # uint256[]
   _dest: BigInt! # uint256
   _pubKey1: BigInt! # uint256
   _pubKey2: BigInt! # uint256

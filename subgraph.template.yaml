@@ -19,9 +19,9 @@ dataSources:
         - name: Data2Swap
           file: ./abis/Data2Swap.json
       eventHandlers:
-        - event: Buy(indexed address,indexed uint256,uint256,uint256)
+        - event: Buy(indexed address,indexed bytes32,uint256,uint256)
           handler: handleBuy
-        - event: Send(indexed address,indexed uint256,string,string)
+        - event: Send(indexed address,indexed bytes32,string,string)
           handler: handleSend
       file: ./src/data-2-swap.ts
   - kind: ethereum
