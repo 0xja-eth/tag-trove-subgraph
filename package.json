@@ -6,10 +6,8 @@
     "build": "graph build",
 
     "prepare:scroll-test": "mustache chains/scroll-test.json subgraph.template.yaml > subgraph.yaml",
-    "prepare:bsc-test": "mustache chains/bsc-test.json subgraph.template.yaml > subgraph.yaml",
 
     "deploy:scroll-test": "npm run prepare:scroll-test & graph deploy --studio data2-cash-scroll",
-    "deploy:bsc-test": "npm run prepare:bsc-test & graph deploy --node https://api.studio.thegraph.com/deploy/ data2-cash-bsc",
 
     "create-local": "graph create --node http://localhost:8020/ data2-cash",
     "remove-local": "graph remove --node http://localhost:8020/ data2-cash",
